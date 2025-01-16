@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/fps_auth_base-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/fps_auth_base-{{ version }}.tar.gz
   sha256: d3c754ec74f1c7867037a29550aef176b5f7d01033202512094fad9878c8315c
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - pip
     - hatchling
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - fps >=0.0.17,<1
 
 test:
@@ -28,6 +28,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/jupyter-server/jupyverse/tree/main/plugins/auth_base
